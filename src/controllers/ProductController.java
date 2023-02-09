@@ -1,15 +1,14 @@
 package controllers;
 
 import models.Product;
+import utils.Rounder;
 import views.SalesView;
 
-// Controller
-public class ProductController {
+public class ProductController extends Rounder {
 
     Product model;
     SalesView view;
 
-    // Конструктор
     public ProductController(Product model, SalesView view) {
         this.model = model;
         this.view = view;
@@ -19,13 +18,15 @@ public class ProductController {
 
         view.getInputs();
 
-        // Здесь, реализуйте:
-        // 1) получение имени товара через модель;
-        // 2) вызов методов расчетов доходов и налога;
-        // 3) округление расчетных значений;
-        // 4) вывод расчетов по заданному формату.
+        String name = model.getName();
+        double income = model.getIncome();
+        double tax = model.getTax(income);
+        double netIncome = model.getIncome(income, tax);
 
-        String output = "[здесь должен быть вывод по формату]";
+        String output = "Product name: " + name +
+                "\nAll income (uah): " + roundPrice(income) +
+                "\nTax (uah): " + roundPrice(tax) +
+                "\nNet Income (uah): " + roundPrice(netIncome);
 
         view.getOutput(output);
     }
