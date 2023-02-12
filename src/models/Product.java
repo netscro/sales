@@ -1,31 +1,53 @@
 package models;
 
 
+import base.Fiscal;
+import base.Income;
 
-// Model.
-// Примените интерфейсы Income, Fiscal, переопределите их методы.
-public class Product {
+public class Product implements Income, Fiscal {
 
-    // Объявление полей модели
     private String name;
     private int quantity;
     private double price;
-    // Налоговоу ставку объявите в виде константы
-    // здесь ...
+    private final static double TAX = 0.05;
 
+    public String getName() {
+        return this.name;
+    }
 
-    // Обеспечьте доступ к полям модели через getters и setters
-    // здесь ...
+    public int getQuantity() {
+        return this.quantity;
+    }
 
+    public double getPrice() {
+        return this.price;
+    }
 
-    // Переопределите методы реализуемых интерфейсов.
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    // Расчёт дохода от продаж, до уплаты налога.
-    // здесь ...
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-    // Расчёт суммы налога с продаж.
-    // здесь ...
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-    // Расчёт чистого дохода, после уплаты налога.
-    // здесь ...
+    @Override
+    public double getIncome() {
+        return quantity * price;
+    }
+
+    @Override
+    public double getTax(double income) {
+        return income * TAX;
+    }
+
+    @Override
+    public double getIncome(double income, double taxPrice) {
+        return income - taxPrice;
+    }
+
 }
